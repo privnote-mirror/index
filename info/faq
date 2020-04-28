@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<!-- CREATED FROM GIT HOOK POST-UPDATE / DO NOT EDIT -->
+
+
+<html>
+    <head>
+        <title>FAQ Privnote</title>
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+    </head>
+    <body>
+        <div id="header_bg">
+        <div id="header">
+            <h1>
+                <a href="/">
+                    <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                         onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                    <span>Privnote</span>
+                </a>
+            </h1>
+            
+            <h2 class="caption">Send notes that will self-destruct after being read.</h2>
+            
+        </div>
+        </div>
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- privnote-info -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5092778170626405"
+                     data-ad-slot="7169167777"
+                     data-ad-format="auto"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <div id="content">
+            <div>
+
+
+
+
+<h2>FAQ</h2>
+
+<ol>
+    <li><a href="#1">Is Privnote really private?</a></li>
+    <li><a href="#2">How can I send my note? Is there a way to send the link directly from Privnote's site?</a></li>
+    <li><a href="#3">Can I send a privnote to multiple recipients?</a></li>
+    <li><a href="#4">What can I do if I regret sending the note or if I mistakenly send it to someone I do not want to read it?</a></li>
+    <li><a href="#5">Can I know when the note is read?</a></li>
+    <li><a href="#6">The recipient can copy and paste the note, so it doesn't actually self-destruct, right?</a></li>
+    <li><a href="#7">Is it possible to see a recently read note using the history of the browser, the back button or the recently closed tabs feature?</a></li>
+    <li><a href="#8">How much time are unread notes stored on your servers?</a></li>
+</ol>
+
+<h3 id="1">Is Privnote really private?</h3>
+<p>We are confident in asserting that Privnote is both private and secure, and we are committed to making sure it remains that way. Please read our Privacy Policy for further details.</p>
+
+<h3 id="2">How can I send my note? Is there a way to send the link directly from Privnote's site?</h3>
+<p>Privnote gives you a link to your note. You have to copy and paste that link into an email (or instant message) and send it to the person you want to read the note.</p>
+
+<h3 id="3">Can I send a Privnote to multiple recipients?</h3>
+<p>If you want to send the same note to more than one person, go to  "Show options" and opt for a time interval for the note's removal, then independently of how many times the note is retrieved, the note will be deleted only after that specified time is completed.</p>
+
+<h3 id="4">What can I do if I regret sending the note or if I mistakenly send it to someone I do not want to read it?</h3>
+<p>You just have to paste the link into your browser's URL, and when the note is displayed it will self-destruct. When the person you sent the link to attempts to do the same, a message will display saying that the note has already been read.</p>
+
+<h3 id="5">Can I know when the note is read?</h3>
+<p>Yes, you have to check the notification box below the note and enter your email address. Privnote will send an email to that address when the note is read. You can also add a reference to identify each note.</p>
+
+<h3 id="6">The recipient can copy and paste the note, so it doesn't actually self-destruct, right?</h3>
+<p>Right. But, then again, you couldn't prevent the recipient from taking a screen capture or even memorizing the note. That's why Privnote doesn't try to protect the note contents from being copied. It only makes sure that the contents is never read, by anyone, before it reaches the recipient, and is never read by anyone afterward either. What the recipient does with the note is his sole responsability.</p>
+
+<h3 id="7">Is it possible to see a recently read note using the history of the browser, the back button or the recently closed tabs feature?</h3>
+<p>The note self-destructs after being read; there is no way to re-read it once it has been read.</p>
+
+<h3 id="8">How much time are unread notes stored on your servers?</h3>
+<p>After 30 days all unread notes are automatically deleted. For more information, you can read our <a href="privacy">Privacy Policy</a></p>
+
+</div>
+</div>
+
+<div id="footer">
+    
+        
+    
+
+    <div id="nav">
+        
+        <a href="/blog" rel="noreferrer">Blog</a> |
+        <a href="about">About</a> |
+        <a href="privacy">Privacy</a> |
+        <a href="faq">FAQ</a> |
+        <a href="contact">Contact</a> |
+        <a href="support">Support</a>
+        
+        <br>
+        <br>
+    </div>
+
+    <div>
+    <select onchange='window.location.href="/info/"+this.value+"/"+"faq"'>
+        <option
+             value="en"
+             >English</option>
+        <option
+             value="es"
+             >Español</option>
+    </select>
+    </div>
+
+    <div id="footnote">
+        Privnote © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+    </div>
+
+
+</div>
+
+</body>
+</html>
+

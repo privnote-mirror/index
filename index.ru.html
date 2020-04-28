@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Privnote - Отправляйте записки, которые самоуничтожатся после прочтения</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Share a confidential note via a web link that will self-destruct after it is read by your intended recipient." />
+        
+        
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+        <meta name="application-name" content="Privnote"/>
+        <meta name="msapplication-TileColor" content="#960000" />
+        <meta name="msapplication-TileImage" content="/static-58c8928/icon/mstile-144x144.png" />
+
+        <!-- <meta name="viewport" content="width=600">-->
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=no"> -->
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/gibberish-aes.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/TextEncoderLite.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/b64.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/promise.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/common.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/legacy.js"></script>
+
+        <script type="text/javascript">
+            
+            var i18n_tpl = {
+            'expires_d'   : "{days} дней"  , // >= 2 days
+            'expires_h_m' : "{hours} час(ов) и {minutes} минут(ы)", // >= 2 hours
+            'expires_m_s' : "{minutes} минут(ы) и {seconds} секунд(ы)", // >= 2 min
+            'expires_s'   : "{seconds} секунд(ы)"    // else
+            }
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy-ie-lte-8.css" />
+        <![endif]-->
+        
+    </head>
+    <body>
+        
+        <div id="header_bg">
+            <div id="header">
+                <h1>
+                    <a href="/" title="Нажмите здесь, чтобы создать новую заметку">                        
+                        <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                             onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                        <span>Privnote</span>
+                    </a>
+                </h1>
+                <h2>Посылайте записки, которые будут самоуничтожены после прочтения.</h2>
+            </div>
+            
+        </div>
+
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <!-- CREATE -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- privnote-create -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-5092778170626405"
+data-ad-slot="8645900978"
+data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+            </div>
+        </div>
+        
+        
+        <!-- content -->
+        <div id="unsupported">
+            Загрузка...<br><br>
+            <p>
+                Если это сообщение до сих пор не пропало, это означает, что Privnote не работает в вашем браузере.<br>
+                Пожалуйста, проверьте, включен ли JavaScript.<br>
+                Если эта проблема до сих пор существует, отправьте нам письмо на support@privnote.com, указав название браузера и его версию, и мы сделаем все, что в наших силах, чтобы исправить эту проблему.<br>
+            </p>
+        </div>
+        <div id="content" class="hidden">
+            
+
+<!-- ========== NEW NOTE ========== --> 
+<div id="new_note">
+
+    <div>
+        <h1 class="">Новая записка <a id="new_note_help_toggle" class="help_button">?</a></h1>        
+    </div>
+        
+    <div id="new_note_help" class="section hidden help_block">
+        С помощью Privnote вы можете посылать записки, которые самоуничтожаются после того, как их прочитают.<br>
+        1. Напишите записку ниже, зашифруйте её и получите ссылку.<br>
+        2. Отправьте ссылку тому, кто должен прочесть записку.<br>
+        3. Записка самоуничтожится после того, как её прочитают.<br>
+        <br>
+        Нажав кнопку &quot;параметры&quot;, вы можете указать пароль для дешифрования записки, установить срок её действия и настроить уведомление о прочтении, когда записка будет уничтожена.  <br>
+        <br>
+        Для получения большей информации о работе Privnote, нажмите
+        <a href="/info/about">О нас</a>. 
+    </div>
+
+    <textarea id="note_raw" name="note_raw"  rows="4" placeholder="Напишите ваш текст здесь..."></textarea>
+
+
+    <div id="advanced_options" class="hidden">
+        <h3>Записка самоуничтожится</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                <select id="duration_hours" name="duration_hours">
+                    <option value="0">после прочтения</option>
+                    <option value="1">спустя 1 час	</option>
+                    <option value="24">спустя 24 часа</option>
+                    <option value="168">спустя 7 дней</option>
+                    <option value="720">спустя 30 дней</option>
+                </select>
+            </label>
+            </div>
+
+            <div class="col span_3_of_6" id="confirmation_option">
+                <label class="checkbox">
+                    <input type="checkbox" name="destroy_without_confirmation" id="destroy_without_confirmation">
+                    Не спрашивать подтверждение перед тем, как показать и уничтожить записку.
+                </label>
+            </div>
+        </div>
+        
+        <h3>Секретный пароль</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                Введите пароль для дешифрования записки
+                <input id="manual_password" type="password">
+                <span id="very_weak_manual_password"   class="caption very_weak hidden">Очень слабый</span>
+                <span id="weak_manual_password"        class="caption weak hidden">Слабый</span>
+                <span id="good_manual_password"        class="caption good hidden">Хороший</span>
+                <span id="strong_manual_password"      class="caption strong hidden">Сильный</span>
+                <span id="very_strong_manual_password" class="caption very_strong hidden">Очень сильный</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Повторите пароль
+                <input id="manual_password_confirm" type="password">
+                <span class="error hidden" id="error_password_mismatch">Пароли не совпадают.</span>
+            </label>
+            </div>
+        </div>
+        
+        <h3>Уведомление об уничтожении</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                E-mail для получения уведомления об уничтожении записки.
+                <input id="notify_email" name="notify_email" type="text">
+                <span class="error hidden" id="error_notify_email_invalid">Неправильный e-mail адрес</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Название ссылки для записки (по желанию)	
+                <input id="notify_ref" name="notify_ref" type="text" maxlength="7">
+            </label>
+            </div>
+        </div>
+
+        <div class="section group hidden" id="advanced_options_tip">
+            Подсказка: добавьте эту страницу в закладки, чтобы не устанавливать эти настройки каждый раз
+        </div>
+    </div>
+
+    
+    <div id="error_connection" class="error_block hidden">
+        Ошибка связи с сервером Privnote. Пожалуйста, проверьте ваше интернет-соединение и попробуйте еще раз
+    </div>
+    <div id="error_ajax" class="error_block hidden">
+    </div>
+    <div id="error_note_is_empty" class="error_block hidden">
+        Ошибка: текст записки пуст
+    </div>
+
+
+    <div class="section group">
+        <div class="col span_2_of_6">
+            <button id="encrypt_note" class="primary_button">Создать записку</button>
+        </div>
+        <div class="col span_2_of_6 right">
+            <button id="advanced_options_show" class="button">
+                Показать параметры <span id="options_on_notice_asterisk" class="hidden">(*)</></button>
+            <button id="advanced_options_hide" class="button hidden">
+                Отключить параметры</button>
+            <div class="hint hidden" id="options_on_notice">(*) функции, установленные ссылкой</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== PROCESSING ========== --> 
+<div id="creating_note" class="hidden">
+    <h1>Обработка...</h1>
+    <p>Пожалуйста, подождите, пока записка будет зашифрована в вашем браузере и затем сохранена в Privnote.</p>
+</div>
+
+<!-- ========== CREATED NOTE ========== --> 
+<div id="created_note" class="hidden">
+    <h1>Ссылка на записку готова <a id="created_note_help_toggle" class="help_button">?</a></h1>
+
+    <div id="created_note_help" class="help_block hidden">        
+        Скопируйте ссылку, вставьте её в электронное письмо или мгновенное сообщение и отправьте ее тому, кто должен прочесть записку.
+        <span id="created_note_with_pass_help" class="hidden">
+            Не забудьте также отправить пароль.
+            Используйте различные методы отправки, чтобы повысить уровень безопасности.
+        </span>
+    </div>
+
+    <!-- link and toolbar -->
+    <div class="section group">
+        <label>
+        <input id="note_link_input" type="text" readonly>
+        <span id="info_read_once" class="caption hidden">
+            Записка самоуничтожится после её прочтения.</span>
+        <span id="info_expires" class="caption hidden">
+            Записка самоуничтожится через <span id="info_expires_text"></span>.</span>
+        </label>
+    </div>
+    
+    <div class="section group">
+        <div class="col span_1_of_6">
+        <button id="select_link"
+           class="small_button">Выделить ссылку</button>
+        </div>
+        <div class="col span_1_of_6">
+        <a id="mailto_link"
+           class="small_button"
+           href="">E-mail </a>
+        </div>
+
+        <div class="col span_2_of_6 right">        
+        <!-- only for P_READ_ONCE --> 
+        <a id="destroy_link"
+           class="danger small_button hidden" 
+           href="">Уничтожить записку сейчас</a>
+
+        <!-- not for P_READ_ONCE -->
+        <a id="show_link"
+           class="small_button hidden"           
+           href="">Прочитать записку</a>
+        </div>
+    </div>
+
+    <!-- only for manual password -->
+    <div id="note_password_block" class="hidden">
+        <h3>Секретный пароль</h3>
+        <div class="section group">
+            <label>
+                Необходим пароль для прочтения этой записки
+                <input id="note_password_input" type="text" readonly> 
+            </label>
+        </div>
+        
+        <div class="section group">
+            <div class="col span_2_of_6">            
+                <button id="show_password" class="small_button">Показать пароль</button>
+                <button id="hide_password" class="small_button hidden">Скрыть пароль</button>
+            </div>
+            <div class="col span_2_of_6">            
+               <button id="select_password" class="small_button hidden">Выделить пароль</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+    notes.set_device_type("desktop")
+    notes.when_ready( function() { notes.init_create() } )
+    
+</script>
+
+        </div>
+
+        
+        
+        <div id="footer">
+            <div id="nav" class="section group">
+                <div class="col span_2_of_6">
+                    <a href="/"><strong>Написать новую записку</strong></a><br>
+                    <a href="/info/contact">Комментарии</a>
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/info/support">Поддержка</a><br>
+                    <a href="/info/privacy">Конфиденциальность</a><br>
+                    <a href="/info/about">О нас</a>
+                                        
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/blog" rel="noreferrer">Blog</a><br>
+                    <a href="/twitter" rel="noreferrer">Twitter</a><br>
+                    <a href="/facebook" rel="noreferrer">Facebook</a>
+                </div>
+
+                <div class="col span_2_of_6">
+                    <form method="get">
+                        <select name="manual_locale" onchange="javascript:this.form.submit()">
+                            <option
+                                 value="de"
+                                 >Deutsch</option>
+                            <option
+                                 value="en"
+                                 >English</option>
+                            <option
+                                 value="es"
+                                 >Español</option>
+                            <option
+                                 value="fr"
+                                 >Français</option>
+                            <option
+                                 value="it"
+                                 >Italiano</option>
+                            <option
+                                 value="pl"
+                                 >Polski</option>
+                            <option
+                                 value="pt"
+                                 >Português</option>
+                            <option
+                                 value="ro"
+                                 >Romana</option>
+                            <option
+                                 value="ru"
+                                 selected=selected
+                                 >Русский</option>
+                            <option
+                                 value="sv"
+                                 >Svenska</option>
+                            <option
+                                 value="tr"
+                                 >Türkçe</option>
+                            <option
+                                 value="uk"
+                                 >українська мова</option>
+                            <option
+                                 value="zh_CN"
+                                 >汉语</option>
+                            <option
+                                 value="zh_TW"
+                                 >漢語</option>
+                            <option
+                                 value="cs"
+                                 >čeština</option>
+                            <option
+                                 value="nl"
+                                 >Dutch</option>
+                            <option
+                                 value="th"
+                                 >ไทย</option>
+                            <option value="default">(По умолчанию в браузере)</option>
+                        </select>
+                    </form>
+                    <a href="http://blog.privnote.com/post/125553077722/helps-us-translate-privnote">Переведите на ваш язык!</a><br><br>
+                </div>
+            </div>
+            
+            <div id="footnote">
+                Privnote <span class="version">Ver. 1.1-44-g58c8928 / 2018-05-25</span> |
+                © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+            </div>
+        </div>
+        
+        
+        <div id="cookie-modal" class="cookie-modal hidden">
+            <span class="cookie-span">В Privnote используются файлы cookie.
+               <a class="cookie-link" target="_blank" href="/info/privacy">Изучите это в нашей Политике конфиденциальности.</a>
+               <button id="cookie_consent" class="cookie-button">Понял!</button>
+            </span>
+        </div> 
+        
+    </body>
+
+</html>

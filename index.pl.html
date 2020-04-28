@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Privnote - wysyłaj notatki, które zostaną zniszczone po przeczytaniu</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Share a confidential note via a web link that will self-destruct after it is read by your intended recipient." />
+        
+        
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+        <meta name="application-name" content="Privnote"/>
+        <meta name="msapplication-TileColor" content="#960000" />
+        <meta name="msapplication-TileImage" content="/static-58c8928/icon/mstile-144x144.png" />
+
+        <!-- <meta name="viewport" content="width=600">-->
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=no"> -->
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/gibberish-aes.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/TextEncoderLite.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/b64.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/promise.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/common.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/legacy.js"></script>
+
+        <script type="text/javascript">
+            
+            var i18n_tpl = {
+            'expires_d'   : "{days} dni"  , // >= 2 days
+            'expires_h_m' : "{hours} godzin(y) i {minutes} minut(y)", // >= 2 hours
+            'expires_m_s' : "{minutes} minut(y) i {seconds} sekund(y)", // >= 2 min
+            'expires_s'   : "{seconds} sekund(y)"    // else
+            }
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy-ie-lte-8.css" />
+        <![endif]-->
+        
+    </head>
+    <body>
+        
+        <div id="header_bg">
+            <div id="header">
+                <h1>
+                    <a href="/" title="Kliknij tutaj aby stworzyć nową notatkę">                        
+                        <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                             onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                        <span>Privnote</span>
+                    </a>
+                </h1>
+                <h2>Wysyłaj notatki, które zostaną automatycznie zniszczone po przeczytaniu.</h2>
+            </div>
+            
+        </div>
+
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <!-- CREATE -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- privnote-create -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-5092778170626405"
+data-ad-slot="8645900978"
+data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+            </div>
+        </div>
+        
+        
+        <!-- content -->
+        <div id="unsupported">
+            Ładowanie...<br><br>
+            <p>
+                Jeśli wiadomość nie zniknie po chwili, oznacza to, że Privnote nie działa poprawnie w Twojej przeglądarce.<br>
+                Sprawdź, czy JavaScript jest włączony.<br>
+                Jeśli problem się powtarza, wyślij do nas e-mail na adres support@privnote.com z informacją o wersji przeglądarki internetowej i postaramy się naprawić problem.<br>
+            </p>
+        </div>
+        <div id="content" class="hidden">
+            
+
+<!-- ========== NEW NOTE ========== --> 
+<div id="new_note">
+
+    <div>
+        <h1 class="">Nowa notatka <a id="new_note_help_toggle" class="help_button">?</a></h1>        
+    </div>
+        
+    <div id="new_note_help" class="section hidden help_block">
+        Przy użyciu Privnote możesz wysyłać notatki, które zostaną automatycznie zniszczone po przeczytaniu.<br>
+        1. Napisz notatkę w polu poniżej, zaszyfruj i odbierz link.<br>
+        2. Wyślij link do osoby, której chcesz przekazać wiadomość.<br>
+        3. Notatka ulegnie samozniszczeniu po przeczytaniu przez odbiorcę.<br>
+        <br>
+        Po kliknięciu w &quot;opcje&quot;, możesz ręcznie ustawić hasło do zaszyfrowania notatki, czas ważności i aktywować powiadomienie gdy zostanie zniszczona.<br>
+        <br>
+        Aby dowiedzieć się jak działa Privnote, sprawdź
+        <a href="/info/about">o stronie</a>. 
+    </div>
+
+    <textarea id="note_raw" name="note_raw"  rows="4" placeholder="Napisz tu swoją notatkę..."></textarea>
+
+
+    <div id="advanced_options" class="hidden">
+        <h3>Samozniszczenie notatki</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                <select id="duration_hours" name="duration_hours">
+                    <option value="0">po przeczytaniu</option>
+                    <option value="1">za godzinę</option>
+                    <option value="24">za 24h</option>
+                    <option value="168">W 7 dni</option>
+                    <option value="720">za 30 dni</option>
+                </select>
+            </label>
+            </div>
+
+            <div class="col span_3_of_6" id="confirmation_option">
+                <label class="checkbox">
+                    <input type="checkbox" name="destroy_without_confirmation" id="destroy_without_confirmation">
+                    Nie pytaj o potwierdzenie przed pokazaniem i zniszczeniem notatki.
+                </label>
+            </div>
+        </div>
+        
+        <h3>Własne hasło</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                Podaj własne hasło do zaszyfrowania notatki
+                <input id="manual_password" type="password">
+                <span id="very_weak_manual_password"   class="caption very_weak hidden">Bardzo słabe</span>
+                <span id="weak_manual_password"        class="caption weak hidden">Słabe</span>
+                <span id="good_manual_password"        class="caption good hidden">Dobre</span>
+                <span id="strong_manual_password"      class="caption strong hidden">Silne</span>
+                <span id="very_strong_manual_password" class="caption very_strong hidden">Bardzo silne</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Potwierdź hasło
+                <input id="manual_password_confirm" type="password">
+                <span class="error hidden" id="error_password_mismatch">Hasła nie są zgodne.</span>
+            </label>
+            </div>
+        </div>
+        
+        <h3>Powiadomienie o zniszczeniu</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                E-mail dla powiadomienia o zniszczeniu notatki
+                <input id="notify_email" name="notify_email" type="text">
+                <span class="error hidden" id="error_notify_email_invalid">Nieprawidłowy adres e-mail.</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Nazwa dla notatki (opcjonalne)
+                <input id="notify_ref" name="notify_ref" type="text" maxlength="7">
+            </label>
+            </div>
+        </div>
+
+        <div class="section group hidden" id="advanced_options_tip">
+            Tip: dodaj tą stronę do zakładek, a nie będziesz musiał uzupełniać zaawansowanych opcji następnym razem.
+        </div>
+    </div>
+
+    
+    <div id="error_connection" class="error_block hidden">
+        Wystąpił problem w komunikacji z serwerem Privnote. Sprawdź swoje połączenie internetowe i spróbuj ponownie.
+    </div>
+    <div id="error_ajax" class="error_block hidden">
+    </div>
+    <div id="error_note_is_empty" class="error_block hidden">
+        Błąd: treść notatki jest pusta
+    </div>
+
+
+    <div class="section group">
+        <div class="col span_2_of_6">
+            <button id="encrypt_note" class="primary_button">Utwórz notatkę</button>
+        </div>
+        <div class="col span_2_of_6 right">
+            <button id="advanced_options_show" class="button">
+                Pokaż opcje <span id="options_on_notice_asterisk" class="hidden">(*)</></button>
+            <button id="advanced_options_hide" class="button hidden">
+                Zamknij opcje</button>
+            <div class="hint hidden" id="options_on_notice">(*) niektóre opcje ustawione z adresu URL</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== PROCESSING ========== --> 
+<div id="creating_note" class="hidden">
+    <h1>Przetwarzanie...</h1>
+    <p>Proszę czekać na zaszyfrowanie notatki w przeglądarce i zapisanie jej w Privnote.</p>
+</div>
+
+<!-- ========== CREATED NOTE ========== --> 
+<div id="created_note" class="hidden">
+    <h1>Link do notatki gotowy <a id="created_note_help_toggle" class="help_button">?</a></h1>
+
+    <div id="created_note_help" class="help_block hidden">        
+        Skopiuj link, wklej go do e-mail lub wiadomości i wyślij do osoby, która powinna przeczytać notatkę.
+        <span id="created_note_with_pass_help" class="hidden">
+            Nie zapomnij wysłać również hasła
+            Użyj innej metody wysyłki, aby podnieść bezpieczestwo
+        </span>
+    </div>
+
+    <!-- link and toolbar -->
+    <div class="section group">
+        <label>
+        <input id="note_link_input" type="text" readonly>
+        <span id="info_read_once" class="caption hidden">
+            Notatka zostanie zniszczona po przeczytaniu.</span>
+        <span id="info_expires" class="caption hidden">
+            Notatka zostanie zniszczona w ciągu <span id="info_expires_text"></span>.</span>
+        </label>
+    </div>
+    
+    <div class="section group">
+        <div class="col span_1_of_6">
+        <button id="select_link"
+           class="small_button">Wybierz link</button>
+        </div>
+        <div class="col span_1_of_6">
+        <a id="mailto_link"
+           class="small_button"
+           href="">Wyślij link e-mailem</a>
+        </div>
+
+        <div class="col span_2_of_6 right">        
+        <!-- only for P_READ_ONCE --> 
+        <a id="destroy_link"
+           class="danger small_button hidden" 
+           href="">Zniszcz notatkę teraz</a>
+
+        <!-- not for P_READ_ONCE -->
+        <a id="show_link"
+           class="small_button hidden"           
+           href="">Przeczytaj notatkę</a>
+        </div>
+    </div>
+
+    <!-- only for manual password -->
+    <div id="note_password_block" class="hidden">
+        <h3>Własne hasło</h3>
+        <div class="section group">
+            <label>
+                Hasło jest wymagane, aby przeczytać notatkę
+                <input id="note_password_input" type="text" readonly> 
+            </label>
+        </div>
+        
+        <div class="section group">
+            <div class="col span_2_of_6">            
+                <button id="show_password" class="small_button">Pokaż hasło</button>
+                <button id="hide_password" class="small_button hidden">Ukryj hasło</button>
+            </div>
+            <div class="col span_2_of_6">            
+               <button id="select_password" class="small_button hidden">Wybierz hasło</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+    notes.set_device_type("desktop")
+    notes.when_ready( function() { notes.init_create() } )
+    
+</script>
+
+        </div>
+
+        
+        
+        <div id="footer">
+            <div id="nav" class="section group">
+                <div class="col span_2_of_6">
+                    <a href="/"><strong>Napisz nową notatkę</strong></a><br>
+                    <a href="/info/contact">Komentarze</a>
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/info/support">wsparcie</a><br>
+                    <a href="/info/privacy">Prywatność</a><br>
+                    <a href="/info/about">Informacje</a>
+                                        
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/blog" rel="noreferrer">Blog</a><br>
+                    <a href="/twitter" rel="noreferrer">Twitter</a><br>
+                    <a href="/facebook" rel="noreferrer">Facebook</a>
+                </div>
+
+                <div class="col span_2_of_6">
+                    <form method="get">
+                        <select name="manual_locale" onchange="javascript:this.form.submit()">
+                            <option
+                                 value="de"
+                                 >Deutsch</option>
+                            <option
+                                 value="en"
+                                 >English</option>
+                            <option
+                                 value="es"
+                                 >Español</option>
+                            <option
+                                 value="fr"
+                                 >Français</option>
+                            <option
+                                 value="it"
+                                 >Italiano</option>
+                            <option
+                                 value="pl"
+                                 selected=selected
+                                 >Polski</option>
+                            <option
+                                 value="pt"
+                                 >Português</option>
+                            <option
+                                 value="ro"
+                                 >Romana</option>
+                            <option
+                                 value="ru"
+                                 >Русский</option>
+                            <option
+                                 value="sv"
+                                 >Svenska</option>
+                            <option
+                                 value="tr"
+                                 >Türkçe</option>
+                            <option
+                                 value="uk"
+                                 >українська мова</option>
+                            <option
+                                 value="zh_CN"
+                                 >汉语</option>
+                            <option
+                                 value="zh_TW"
+                                 >漢語</option>
+                            <option
+                                 value="cs"
+                                 >čeština</option>
+                            <option
+                                 value="nl"
+                                 >Dutch</option>
+                            <option
+                                 value="th"
+                                 >ไทย</option>
+                            <option value="default">(Domyślny przeglądarki)</option>
+                        </select>
+                    </form>
+                    <a href="http://blog.privnote.com/post/125553077722/helps-us-translate-privnote">Przetłumacz na swój język!</a><br><br>
+                </div>
+            </div>
+            
+            <div id="footnote">
+                Privnote <span class="version">Ver. 1.1-44-g58c8928 / 2018-05-25</span> |
+                © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+            </div>
+        </div>
+        
+        
+        <div id="cookie-modal" class="cookie-modal hidden">
+            <span class="cookie-span">Privnote używa plików cookie.
+               <a class="cookie-link" target="_blank" href="/info/privacy">Dowiedz się tego w naszej Polityce prywatności.</a>
+               <button id="cookie_consent" class="cookie-button">Zrozumiano!</button>
+            </span>
+        </div> 
+        
+    </body>
+
+</html>
+

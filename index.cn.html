@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Privnote － 发送阅后即焚的笔记</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Share a confidential note via a web link that will self-destruct after it is read by your intended recipient." />
+        
+        
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+        <meta name="application-name" content="Privnote"/>
+        <meta name="msapplication-TileColor" content="#960000" />
+        <meta name="msapplication-TileImage" content="/static-58c8928/icon/mstile-144x144.png" />
+
+        <!-- <meta name="viewport" content="width=600">-->
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=no"> -->
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/gibberish-aes.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/TextEncoderLite.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/b64.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/promise.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/common.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/legacy.js"></script>
+
+        <script type="text/javascript">
+            
+            var i18n_tpl = {
+            'expires_d'   : "{days} 天"  , // >= 2 days
+            'expires_h_m' : "{hours} 小时 {minutes} 分钟", // >= 2 hours
+            'expires_m_s' : "{minutes} 分钟 {seconds} 秒", // >= 2 min
+            'expires_s'   : "{seconds} 秒"    // else
+            }
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy-ie-lte-8.css" />
+        <![endif]-->
+        
+    </head>
+    <body>
+        
+        <div id="header_bg">
+            <div id="header">
+                <h1>
+                    <a href="/" title="点击这里创建一个新笔记">                        
+                        <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                             onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                        <span>Privnote</span>
+                    </a>
+                </h1>
+                <h2>发送阅后即焚的笔记。</h2>
+            </div>
+            
+        </div>
+
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <!-- CREATE -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- privnote-create -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-5092778170626405"
+data-ad-slot="8645900978"
+data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+            </div>
+        </div>
+        
+        
+        <!-- content -->
+        <div id="unsupported">
+            载入 ...<br><br>
+            <p>
+                如果此消息一段时间后没有消失，则意味着 Privnote 无法在您的浏览器上工作。<br>
+                请检查 JavaScript 是否开启。<br>
+                如果问题仍然存在，请将您的浏览器名称和版本发送给我们至 support@privnote.com，我们会尽力修复问题。<br>
+            </p>
+        </div>
+        <div id="content" class="hidden">
+            
+
+<!-- ========== NEW NOTE ========== --> 
+<div id="new_note">
+
+    <div>
+        <h1 class="">新笔记 <a id="new_note_help_toggle" class="help_button">?</a></h1>        
+    </div>
+        
+    <div id="new_note_help" class="section hidden help_block">
+        使用 Privnote 您可以发送阅后即焚的笔记。<br>
+        1. 在下方书写笔记，加密它并获取一个链接。<br>
+        2. 将链接发送给应当阅读此笔记的人。<br>
+        3. 此笔记将在收件人阅读后自动销毁。<br>
+        <br>
+        点击选项按钮，您可以手动指定一个用于加密笔记的密码，设置过期时间以及在笔记销毁时收到提醒。<br>
+        <br>
+        想更进一步了解 Privnote 是如何工作的？查阅
+        <a href="/info/about">关于页</a>. 
+    </div>
+
+    <textarea id="note_raw" name="note_raw"  rows="4" placeholder="在此处写您的笔记 ..."></textarea>
+
+
+    <div id="advanced_options" class="hidden">
+        <h3>笔记自动销毁</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                <select id="duration_hours" name="duration_hours">
+                    <option value="0">阅读后</option>
+                    <option value="1">一小时后</option>
+                    <option value="24">二十四小时后</option>
+                    <option value="168">七天后</option>
+                    <option value="720">三十天后</option>
+                </select>
+            </label>
+            </div>
+
+            <div class="col span_3_of_6" id="confirmation_option">
+                <label class="checkbox">
+                    <input type="checkbox" name="destroy_without_confirmation" id="destroy_without_confirmation">
+                    不要在显示和销毁笔记时确认.
+                </label>
+            </div>
+        </div>
+        
+        <h3>自定义密码</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                输入自定义密码以加密笔记
+                <input id="manual_password" type="password">
+                <span id="very_weak_manual_password"   class="caption very_weak hidden">非常弱</span>
+                <span id="weak_manual_password"        class="caption weak hidden">弱</span>
+                <span id="good_manual_password"        class="caption good hidden">好</span>
+                <span id="strong_manual_password"      class="caption strong hidden">强</span>
+                <span id="very_strong_manual_password" class="caption very_strong hidden">非常强</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                确认密码
+                <input id="manual_password_confirm" type="password">
+                <span class="error hidden" id="error_password_mismatch">密码不一致。</span>
+            </label>
+            </div>
+        </div>
+        
+        <h3>销毁通知</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                邮件通知笔记已销毁
+                <input id="notify_email" name="notify_email" type="text">
+                <span class="error hidden" id="error_notify_email_invalid">无效的电子邮件地址。</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                笔记的引用名称 （选项）
+                <input id="notify_ref" name="notify_ref" type="text" maxlength="7">
+            </label>
+            </div>
+        </div>
+
+        <div class="section group hidden" id="advanced_options_tip">
+            提示：现在收藏此页，您下次就无需再输入这些高级设置。
+        </div>
+    </div>
+
+    
+    <div id="error_connection" class="error_block hidden">
+        与 Privnote 服务器通讯错误。请检查您的网络连接并重试。
+    </div>
+    <div id="error_ajax" class="error_block hidden">
+    </div>
+    <div id="error_note_is_empty" class="error_block hidden">
+        错误：空白笔记。
+    </div>
+
+
+    <div class="section group">
+        <div class="col span_2_of_6">
+            <button id="encrypt_note" class="primary_button">创建笔记</button>
+        </div>
+        <div class="col span_2_of_6 right">
+            <button id="advanced_options_show" class="button">
+                显示选项 <span id="options_on_notice_asterisk" class="hidden">(*)</></button>
+            <button id="advanced_options_hide" class="button hidden">
+                禁用选项</button>
+            <div class="hint hidden" id="options_on_notice">(*) 一些选项通过 URL 设置</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== PROCESSING ========== --> 
+<div id="creating_note" class="hidden">
+    <h1>正在处理 ...</h1>
+    <p>请稍等，笔记正在您的浏览器中加密然后存储到 Privnote。</p>
+</div>
+
+<!-- ========== CREATED NOTE ========== --> 
+<div id="created_note" class="hidden">
+    <h1>笔记链接准备完毕 <a id="created_note_help_toggle" class="help_button">?</a></h1>
+
+    <div id="created_note_help" class="help_block hidden">        
+        复制此链接，将它粘贴到邮件或即时消息中并发送给您指定的收件人。
+        <span id="created_note_with_pass_help" class="hidden">
+            不要忘记发送密码。
+            使用不同的方法发送它以增强安全性。
+        </span>
+    </div>
+
+    <!-- link and toolbar -->
+    <div class="section group">
+        <label>
+        <input id="note_link_input" type="text" readonly>
+        <span id="info_read_once" class="caption hidden">
+            此笔记将在阅读后自动销毁。</span>
+        <span id="info_expires" class="caption hidden">
+            笔记将自动销毁于 <span id="info_expires_text"></span>.</span>
+        </label>
+    </div>
+    
+    <div class="section group">
+        <div class="col span_1_of_6">
+        <button id="select_link"
+           class="small_button">选择链接</button>
+        </div>
+        <div class="col span_1_of_6">
+        <a id="mailto_link"
+           class="small_button"
+           href="">电子邮件链接</a>
+        </div>
+
+        <div class="col span_2_of_6 right">        
+        <!-- only for P_READ_ONCE --> 
+        <a id="destroy_link"
+           class="danger small_button hidden" 
+           href="">立即销毁笔记</a>
+
+        <!-- not for P_READ_ONCE -->
+        <a id="show_link"
+           class="small_button hidden"           
+           href="">阅读笔记</a>
+        </div>
+    </div>
+
+    <!-- only for manual password -->
+    <div id="note_password_block" class="hidden">
+        <h3>自定义密码</h3>
+        <div class="section group">
+            <label>
+                需要密码才能阅读笔记
+                <input id="note_password_input" type="text" readonly> 
+            </label>
+        </div>
+        
+        <div class="section group">
+            <div class="col span_2_of_6">            
+                <button id="show_password" class="small_button">显示密码</button>
+                <button id="hide_password" class="small_button hidden">隐藏密码</button>
+            </div>
+            <div class="col span_2_of_6">            
+               <button id="select_password" class="small_button hidden">选择密码</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+    notes.set_device_type("desktop")
+    notes.when_ready( function() { notes.init_create() } )
+    
+</script>
+
+        </div>
+
+        
+        
+        <div id="footer">
+            <div id="nav" class="section group">
+                <div class="col span_2_of_6">
+                    <a href="/"><strong>写一个新笔记</strong></a><br>
+                    <a href="/info/contact">分享你的评论</a>
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/info/support">支持</a><br>
+                    <a href="/info/privacy">隐私</a><br>
+                    <a href="/info/about">关于</a>
+                                        
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/blog" rel="noreferrer">Blog</a><br>
+                    <a href="/twitter" rel="noreferrer">Twitter</a><br>
+                    <a href="/facebook" rel="noreferrer">Facebook</a>
+                </div>
+
+                <div class="col span_2_of_6">
+                    <form method="get">
+                        <select name="manual_locale" onchange="javascript:this.form.submit()">
+                            <option
+                                 value="de"
+                                 >Deutsch</option>
+                            <option
+                                 value="en"
+                                 >English</option>
+                            <option
+                                 value="es"
+                                 >Español</option>
+                            <option
+                                 value="fr"
+                                 >Français</option>
+                            <option
+                                 value="it"
+                                 >Italiano</option>
+                            <option
+                                 value="pl"
+                                 >Polski</option>
+                            <option
+                                 value="pt"
+                                 >Português</option>
+                            <option
+                                 value="ro"
+                                 >Romana</option>
+                            <option
+                                 value="ru"
+                                 >Русский</option>
+                            <option
+                                 value="sv"
+                                 >Svenska</option>
+                            <option
+                                 value="tr"
+                                 >Türkçe</option>
+                            <option
+                                 value="uk"
+                                 >українська мова</option>
+                            <option
+                                 value="zh_CN"
+                                 selected=selected
+                                 >汉语</option>
+                            <option
+                                 value="zh_TW"
+                                 >漢語</option>
+                            <option
+                                 value="cs"
+                                 >čeština</option>
+                            <option
+                                 value="nl"
+                                 >Dutch</option>
+                            <option
+                                 value="th"
+                                 >ไทย</option>
+                            <option value="default">(浏览器默认值)</option>
+                        </select>
+                    </form>
+                    <a href="http://blog.privnote.com/post/125553077722/helps-us-translate-privnote">翻译到您的语言！</a><br><br>
+                </div>
+            </div>
+            
+            <div id="footnote">
+                Privnote <span class="version">Ver. 1.1-44-g58c8928 / 2018-05-25</span> |
+                © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+            </div>
+        </div>
+        
+        
+        <div id="cookie-modal" class="cookie-modal hidden">
+            <span class="cookie-span">Privnote使用cookies。
+               <a class="cookie-link" target="_blank" href="/info/privacy">在我们的隐私政策中了解这一点。</a>
+               <button id="cookie_consent" class="cookie-button">我明白了！</button>
+            </span>
+        </div> 
+        
+    </body>
+
+</html>
+

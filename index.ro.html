@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Privnote - Trimite note ce se vor autodistruge după citirea lor</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Share a confidential note via a web link that will self-destruct after it is read by your intended recipient." />
+        
+        
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+        <meta name="application-name" content="Privnote"/>
+        <meta name="msapplication-TileColor" content="#960000" />
+        <meta name="msapplication-TileImage" content="/static-58c8928/icon/mstile-144x144.png" />
+
+        <!-- <meta name="viewport" content="width=600">-->
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=no"> -->
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/gibberish-aes.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/TextEncoderLite.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/b64.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/promise.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/common.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/legacy.js"></script>
+
+        <script type="text/javascript">
+            
+            var i18n_tpl = {
+            'expires_d'   : "{days} zile"  , // >= 2 days
+            'expires_h_m' : "{hours} ore și {minutes} minute", // >= 2 hours
+            'expires_m_s' : "{minutes} minute și {seconds} secunde", // >= 2 min
+            'expires_s'   : "{seconds} secunde"    // else
+            }
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy-ie-lte-8.css" />
+        <![endif]-->
+        
+    </head>
+    <body>
+        
+        <div id="header_bg">
+            <div id="header">
+                <h1>
+                    <a href="/" title="Click aici pentru a crea o notă nouă">                        
+                        <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                             onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                        <span>Privnote</span>
+                    </a>
+                </h1>
+                <h2>Trimiteți note care se distrug automat după ce au fost citite</h2>
+            </div>
+            
+        </div>
+
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <!-- CREATE -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- privnote-create -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-5092778170626405"
+data-ad-slot="8645900978"
+data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+            </div>
+        </div>
+        
+        
+        <!-- content -->
+        <div id="unsupported">
+            Încărcare...<br><br>
+            <p>
+                Dacă acest mesaj nu dispare după un timp înseamnă că Privnote nu funcționează în browser-ul dumneavoastră.<br>
+                Vă rugăm să verificați că JavaScript este activat.<br>
+                Dacă problema persistă, trimite-ne un e-mail la support@privnote.com cu numele și versiunea browser-ului și vom face tot posibilul pentru a rezolva problema.<br>
+            </p>
+        </div>
+        <div id="content" class="hidden">
+            
+
+<!-- ========== NEW NOTE ========== --> 
+<div id="new_note">
+
+    <div>
+        <h1 class="">Nota nouă <a id="new_note_help_toggle" class="help_button">?</a></h1>        
+    </div>
+        
+    <div id="new_note_help" class="section hidden help_block">
+        Cu Privnote puteţi trimite mesaje ce se auto-distrug după citirea lor.<br>
+        1. Scrie nota alaturi, cripteaz-o și obține un link.<br>
+        2. Trimite link-ul persoanei ce vrei să citească nota.<br>
+        3. Nota se va autodistruge după ce a fost citită de către destinatar.<br>
+        <br>
+        Făcând clic pe butonul Opțiuni, puteți specifica o parolă manuala pentru a cripta nota, să stabiliți o dată de expirare și să fiți anunțat atunci când nota este distrusă.<br>
+        <br>
+        Că să aflați mai multe asupra cu Privnote funcționează, uitațivă la
+        <a href="/info/about">despre pagină</a>. 
+    </div>
+
+    <textarea id="note_raw" name="note_raw"  rows="4" placeholder="Scrieți nota aici..."></textarea>
+
+
+    <div id="advanced_options" class="hidden">
+        <h3>Nota se autodistruge</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                <select id="duration_hours" name="duration_hours">
+                    <option value="0">după ce a fost citită</option>
+                    <option value="1">1 ora de acum</option>
+                    <option value="24">24 de ore de acum</option>
+                    <option value="168">7 zile de acum</option>
+                    <option value="720">30 de zile de acum</option>
+                </select>
+            </label>
+            </div>
+
+            <div class="col span_3_of_6" id="confirmation_option">
+                <label class="checkbox">
+                    <input type="checkbox" name="destroy_without_confirmation" id="destroy_without_confirmation">
+                    Nu cere confirmare înainte de a afișa și a distruge nota.
+                </label>
+            </div>
+        </div>
+        
+        <h3>Parolă manuală</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                Introduceți o parolă personalizată pentru a cripta nota
+                <input id="manual_password" type="password">
+                <span id="very_weak_manual_password"   class="caption very_weak hidden">Foarte slabă</span>
+                <span id="weak_manual_password"        class="caption weak hidden">Slabă</span>
+                <span id="good_manual_password"        class="caption good hidden">Bun</span>
+                <span id="strong_manual_password"      class="caption strong hidden">Puternică</span>
+                <span id="very_strong_manual_password" class="caption very_strong hidden">Foarte puternică</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Confirmă parola
+                <input id="manual_password_confirm" type="password">
+                <span class="error hidden" id="error_password_mismatch">Parolele nu sunt la fel.</span>
+            </label>
+            </div>
+        </div>
+        
+        <h3>Notificare la distrugere</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                Adresă e-mail pentru notificare atunci când nota este distrusă
+                <input id="notify_email" name="notify_email" type="text">
+                <span class="error hidden" id="error_notify_email_invalid">Adresă de email invalidă.</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Numele de referință pentru notă (opțional)
+                <input id="notify_ref" name="notify_ref" type="text" maxlength="7">
+            </label>
+            </div>
+        </div>
+
+        <div class="section group hidden" id="advanced_options_tip">
+            Sfat: Adăugaţi pagina la favorite pentru a evita introducerea setărilor avansate din nou.
+        </div>
+    </div>
+
+    
+    <div id="error_connection" class="error_block hidden">
+        Eroare la comunicația cu serverul Privnote. Vă rugăm să verificați conexiunea la Internet și să încercați din nou
+    </div>
+    <div id="error_ajax" class="error_block hidden">
+    </div>
+    <div id="error_note_is_empty" class="error_block hidden">
+        Eroare: nota este goală.
+    </div>
+
+
+    <div class="section group">
+        <div class="col span_2_of_6">
+            <button id="encrypt_note" class="primary_button">Creează nota</button>
+        </div>
+        <div class="col span_2_of_6 right">
+            <button id="advanced_options_show" class="button">
+                Arătați opțiuni <span id="options_on_notice_asterisk" class="hidden">(*)</></button>
+            <button id="advanced_options_hide" class="button hidden">
+                Dezactivează opțiuni</button>
+            <div class="hint hidden" id="options_on_notice">(*) Unele opțiuni sunt stabilite de URL</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== PROCESSING ========== --> 
+<div id="creating_note" class="hidden">
+    <h1>Se procesează...</h1>
+    <p>Vă rugăm să așteptați in timp ce nota este criptată în browserul dumneavoastra și încărcată în Privnote</p>
+</div>
+
+<!-- ========== CREATED NOTE ========== --> 
+<div id="created_note" class="hidden">
+    <h1>Link pregătit <a id="created_note_help_toggle" class="help_button">?</a></h1>
+
+    <div id="created_note_help" class="help_block hidden">        
+        Copiază link-ul, adaugă-l într-un e-mail sau mesaj instant şi trimite-l către persoana care doreşti să citească nota.
+        <span id="created_note_with_pass_help" class="hidden">
+            De asemenea, nu uitați să trimiteți parola.
+            Utilizați o altă metodă pentru trimitere pentru o securitate mai mare
+        </span>
+    </div>
+
+    <!-- link and toolbar -->
+    <div class="section group">
+        <label>
+        <input id="note_link_input" type="text" readonly>
+        <span id="info_read_once" class="caption hidden">
+            Nota se va auto-distruge după citire</span>
+        <span id="info_expires" class="caption hidden">
+            Nota se va distruge în <span id="info_expires_text"></span>.</span>
+        </label>
+    </div>
+    
+    <div class="section group">
+        <div class="col span_1_of_6">
+        <button id="select_link"
+           class="small_button">Selectați linkul</button>
+        </div>
+        <div class="col span_1_of_6">
+        <a id="mailto_link"
+           class="small_button"
+           href="">Adresă e-mail</a>
+        </div>
+
+        <div class="col span_2_of_6 right">        
+        <!-- only for P_READ_ONCE --> 
+        <a id="destroy_link"
+           class="danger small_button hidden" 
+           href="">Distruge nota acum</a>
+
+        <!-- not for P_READ_ONCE -->
+        <a id="show_link"
+           class="small_button hidden"           
+           href="">Citește nota</a>
+        </div>
+    </div>
+
+    <!-- only for manual password -->
+    <div id="note_password_block" class="hidden">
+        <h3>Parolă manuală</h3>
+        <div class="section group">
+            <label>
+                Este nevoie de parolă pentru a citi nota
+                <input id="note_password_input" type="text" readonly> 
+            </label>
+        </div>
+        
+        <div class="section group">
+            <div class="col span_2_of_6">            
+                <button id="show_password" class="small_button">Arătați parola</button>
+                <button id="hide_password" class="small_button hidden">Ascunde parola</button>
+            </div>
+            <div class="col span_2_of_6">            
+               <button id="select_password" class="small_button hidden">Selectați parola</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+    notes.set_device_type("desktop")
+    notes.when_ready( function() { notes.init_create() } )
+    
+</script>
+
+        </div>
+
+        
+        
+        <div id="footer">
+            <div id="nav" class="section group">
+                <div class="col span_2_of_6">
+                    <a href="/"><strong>Scrieți o notă nouă</strong></a><br>
+                    <a href="/info/contact">Dă share la comentarii</a>
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/info/support">Suport Tehnic</a><br>
+                    <a href="/info/privacy">Setări confidențialitate</a><br>
+                    <a href="/info/about">Despre</a>
+                                        
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/blog" rel="noreferrer">Blog</a><br>
+                    <a href="/twitter" rel="noreferrer">Twitter</a><br>
+                    <a href="/facebook" rel="noreferrer">Facebook</a>
+                </div>
+
+                <div class="col span_2_of_6">
+                    <form method="get">
+                        <select name="manual_locale" onchange="javascript:this.form.submit()">
+                            <option
+                                 value="de"
+                                 >Deutsch</option>
+                            <option
+                                 value="en"
+                                 >English</option>
+                            <option
+                                 value="es"
+                                 >Español</option>
+                            <option
+                                 value="fr"
+                                 >Français</option>
+                            <option
+                                 value="it"
+                                 >Italiano</option>
+                            <option
+                                 value="pl"
+                                 >Polski</option>
+                            <option
+                                 value="pt"
+                                 >Português</option>
+                            <option
+                                 value="ro"
+                                 selected=selected
+                                 >Romana</option>
+                            <option
+                                 value="ru"
+                                 >Русский</option>
+                            <option
+                                 value="sv"
+                                 >Svenska</option>
+                            <option
+                                 value="tr"
+                                 >Türkçe</option>
+                            <option
+                                 value="uk"
+                                 >українська мова</option>
+                            <option
+                                 value="zh_CN"
+                                 >汉语</option>
+                            <option
+                                 value="zh_TW"
+                                 >漢語</option>
+                            <option
+                                 value="cs"
+                                 >čeština</option>
+                            <option
+                                 value="nl"
+                                 >Dutch</option>
+                            <option
+                                 value="th"
+                                 >ไทย</option>
+                            <option value="default">(Browser implicit)</option>
+                        </select>
+                    </form>
+                    <a href="http://blog.privnote.com/post/125553077722/helps-us-translate-privnote">Traduceți în limba dumneavoastră</a><br><br>
+                </div>
+            </div>
+            
+            <div id="footnote">
+                Privnote <span class="version">Ver. 1.1-44-g58c8928 / 2018-05-25</span> |
+                © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+            </div>
+        </div>
+        
+        
+        <div id="cookie-modal" class="cookie-modal hidden">
+            <span class="cookie-span">Privnote folosește module cookie.
+               <a class="cookie-link" target="_blank" href="/info/privacy">Învățați-o în Politica de confidențialitate.</a>
+               <button id="cookie_consent" class="cookie-button">Inteles!</button>
+            </span>
+        </div> 
+        
+    </body>
+
+</html>
+

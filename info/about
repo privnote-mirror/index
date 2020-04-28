@@ -1,0 +1,118 @@
+
+
+<!DOCTYPE html>
+<!-- CREATED FROM GIT HOOK POST-UPDATE / DO NOT EDIT -->
+
+
+<html>
+    <head>
+        <title>About Privnote</title>
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+    </head>
+    <body>
+        <div id="header_bg">
+        <div id="header">
+            <h1>
+                <a href="/">
+                    <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                         onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                    <span>Privnote</span>
+                </a>
+            </h1>
+            
+            <h2 class="caption">Send notes that will self-destruct after being read.</h2>
+            
+        </div>
+        </div>
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- privnote-info -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5092778170626405"
+                     data-ad-slot="7169167777"
+                     data-ad-format="auto"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <div id="content">
+            <div>
+
+
+
+
+<h2>About Privnote</h2>
+
+<p>Have you ever wanted to send confidential information within your work environment, to family or friends, but were afraid to do so over the internet, because some malicious hacker could be spying on you?</p>
+
+<p>Privnote is a free web based service that allows you to send top secret notes over the internet. It's fast, easy, and requires no password or user registration at all.</p>
+
+<p>Just write your note, and you'll get a link. Then you copy and paste that link into an email (or instant message) that you send to the person who you want to read the note. When that person clicks the link for the first time, they will see the note in their browser and the note will automatically self-destruct; which means no one (even that very same person) can read the note again. The link won't work anymore.</p>
+
+<p>If you have any questions, feel free to submit your inquiry via e-mail to <a href="mailto:info@privnote.com">info@privnote.com</a>, and remember to check our <a href="faq">Frequently Asked Questions</a> first.</p>
+
+<p>If you are concerned about Privacy issues, please read our <a href="privacy">Privacy Policy</a>.</p>
+
+<p><a href="/">Give Privnote a try!</a></p>
+
+</div>
+</div>
+
+<div id="footer">
+    
+        
+    
+
+    <div id="nav">
+        
+        <a href="/blog" rel="noreferrer">Blog</a> |
+        <a href="about">About</a> |
+        <a href="privacy">Privacy</a> |
+        <a href="faq">FAQ</a> |
+        <a href="contact">Contact</a> |
+        <a href="support">Support</a>
+        
+        <br>
+        <br>
+    </div>
+
+    <div>
+    <select onchange='window.location.href="/info/"+this.value+"/"+"about"'>
+        <option
+             value="en"
+             selected=selected>English</option>
+        <option
+             value="es"
+             >Español</option>
+    </select>
+    </div>
+
+    <div id="footnote">
+        Privnote © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+    </div>
+
+
+</div>
+
+</body>
+</html>
+

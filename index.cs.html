@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Privnote - Odesílaní zpráv a jejich zničení po přečtení</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Share a confidential note via a web link that will self-destruct after it is read by your intended recipient." />
+        
+        
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+        <meta name="application-name" content="Privnote"/>
+        <meta name="msapplication-TileColor" content="#960000" />
+        <meta name="msapplication-TileImage" content="/static-58c8928/icon/mstile-144x144.png" />
+
+        <!-- <meta name="viewport" content="width=600">-->
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=no"> -->
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/gibberish-aes.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/TextEncoderLite.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/b64.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/promise.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/common.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/legacy.js"></script>
+
+        <script type="text/javascript">
+            
+            var i18n_tpl = {
+            'expires_d'   : "{days} dní"  , // >= 2 days
+            'expires_h_m' : "{hours} hodiny a {minutes} minut", // >= 2 hours
+            'expires_m_s' : "{minutes} minut a {seconds} sekund", // >= 2 min
+            'expires_s'   : "{seconds} sekund"    // else
+            }
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy-ie-lte-8.css" />
+        <![endif]-->
+        
+    </head>
+    <body>
+        
+        <div id="header_bg">
+            <div id="header">
+                <h1>
+                    <a href="/" title="Klikněte zde pro vytvoření nové zprávy">                        
+                        <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                             onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                        <span>Privnote</span>
+                    </a>
+                </h1>
+                <h2>Pošli zprávu, která bude po přečtení smazána.</h2>
+            </div>
+            
+        </div>
+
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <!-- CREATE -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- privnote-create -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-5092778170626405"
+data-ad-slot="8645900978"
+data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+            </div>
+        </div>
+        
+        
+        <!-- content -->
+        <div id="unsupported">
+            Náčítání...<br><br>
+            <p>
+                Pokud tato zpráva po chvíli nezmizí, znamená to, že Privnote ve Vašem prohlížeči nefunguje.<br>
+                Prosím zkontrolujte, že máte zapnutý JavaScript.<br>
+                Pokud problém přetrvává, pošlete nám e-mail na support@privnote.com s označením Vašeho prohlížeče a jeho verzí a my se vynasnažíme chybu opravit.<br>
+            </p>
+        </div>
+        <div id="content" class="hidden">
+            
+
+<!-- ========== NEW NOTE ========== --> 
+<div id="new_note">
+
+    <div>
+        <h1 class="">Nová zpráva <a id="new_note_help_toggle" class="help_button">?</a></h1>        
+    </div>
+        
+    <div id="new_note_help" class="section hidden help_block">
+        Pomocí Privnote můžete posílat zprávy, které se samy zničí poté, co jsou přečteny.<br>
+        1. Napište zprávu, zašifrujte a získejte odkaz.<br>
+        2. Pošlete odkaz tomu, kdo si má zprávu přečíst.<br>
+        3. Zpráva se automaticky smaže po přečtení.<br>
+        <br>
+        Kliknutím na &quot;možnosti&quot; můžete vložit heslo pro zašifrování zprávy, nastavit expiraci a být upozorněni, až bude zpráva zničena.<br>
+        <br>
+        Abyste se dozvěděli více o tom, jak Privnote funguje, prohlédněte si
+        <a href="/info/about">o stránce</a>. 
+    </div>
+
+    <textarea id="note_raw" name="note_raw"  rows="4" placeholder="Zprávu napište sem..."></textarea>
+
+
+    <div id="advanced_options" class="hidden">
+        <h3>Zpráva se sama smaže</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                <select id="duration_hours" name="duration_hours">
+                    <option value="0">po přečtení</option>
+                    <option value="1">1 hodinu od této chvíle</option>
+                    <option value="24">24 hodin od této chvíle</option>
+                    <option value="168">7 dní od této chvíle</option>
+                    <option value="720">30 dní od této chvíle</option>
+                </select>
+            </label>
+            </div>
+
+            <div class="col span_3_of_6" id="confirmation_option">
+                <label class="checkbox">
+                    <input type="checkbox" name="destroy_without_confirmation" id="destroy_without_confirmation">
+                    Neptat se na potvrzení před zobrazením a smazáním zprávy.
+                </label>
+            </div>
+        </div>
+        
+        <h3>Manuální heslo</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                Vložte heslo k zašifrování zprávy
+                <input id="manual_password" type="password">
+                <span id="very_weak_manual_password"   class="caption very_weak hidden">Velmi slabé</span>
+                <span id="weak_manual_password"        class="caption weak hidden">Slabé</span>
+                <span id="good_manual_password"        class="caption good hidden">Dobře</span>
+                <span id="strong_manual_password"      class="caption strong hidden">Silné</span>
+                <span id="very_strong_manual_password" class="caption very_strong hidden">Velmi silné</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Potvrďte heslo
+                <input id="manual_password_confirm" type="password">
+                <span class="error hidden" id="error_password_mismatch">Hesla se neshodují.</span>
+            </label>
+            </div>
+        </div>
+        
+        <h3>Oznámení o smazání</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                Obdržet e-mail, jakmile bude zpráva zničena
+                <input id="notify_email" name="notify_email" type="text">
+                <span class="error hidden" id="error_notify_email_invalid">Špatná e-mailová adresa.</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Označení zprávy (volitelně)
+                <input id="notify_ref" name="notify_ref" type="text" maxlength="7">
+            </label>
+            </div>
+        </div>
+
+        <div class="section group hidden" id="advanced_options_tip">
+            Tip: uložte si nyní tuto stránku do oblíbených abyste příště nemuseli tyto možnosti zadávat znovu.
+        </div>
+    </div>
+
+    
+    <div id="error_connection" class="error_block hidden">
+        Chyba při komunikaci se serverem Privnote. Zkontrolujte, prosím, své internetové připojení a zkuste to znovu
+    </div>
+    <div id="error_ajax" class="error_block hidden">
+    </div>
+    <div id="error_note_is_empty" class="error_block hidden">
+        Chyba: text zprávy je prázdný.
+    </div>
+
+
+    <div class="section group">
+        <div class="col span_2_of_6">
+            <button id="encrypt_note" class="primary_button">Vytvořte zprávu</button>
+        </div>
+        <div class="col span_2_of_6 right">
+            <button id="advanced_options_show" class="button">
+                Ukázat možnosti <span id="options_on_notice_asterisk" class="hidden">(*)</></button>
+            <button id="advanced_options_hide" class="button hidden">
+                Zrušit možnosti</button>
+            <div class="hint hidden" id="options_on_notice">(*) některé možnosti nastaveny dle URL</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== PROCESSING ========== --> 
+<div id="creating_note" class="hidden">
+    <h1>Zpracovávám...</h1>
+    <p>Počkejte prosím, než se zpráva zašifruje ve vašem prohlížeči a uloží v Privnote.</p>
+</div>
+
+<!-- ========== CREATED NOTE ========== --> 
+<div id="created_note" class="hidden">
+    <h1>Odkaz zprávy je připraven <a id="created_note_help_toggle" class="help_button">?</a></h1>
+
+    <div id="created_note_help" class="help_block hidden">        
+        Zkopírujte odkaz, vložte jej do e-mailu nebo instantní zprávy a pošlete tomu, komu je zpráva určená.
+        <span id="created_note_with_pass_help" class="hidden">
+            Nezapomeňte zaslat také heslo.
+            Pro zvýšení bezpečnosti použijte jiný způsob odeslání.
+        </span>
+    </div>
+
+    <!-- link and toolbar -->
+    <div class="section group">
+        <label>
+        <input id="note_link_input" type="text" readonly>
+        <span id="info_read_once" class="caption hidden">
+            Zpráva se po přečtení smaže.</span>
+        <span id="info_expires" class="caption hidden">
+            Zpráva se sama smaže za <span id="info_expires_text"></span>.</span>
+        </label>
+    </div>
+    
+    <div class="section group">
+        <div class="col span_1_of_6">
+        <button id="select_link"
+           class="small_button">Vybrat odkaz</button>
+        </div>
+        <div class="col span_1_of_6">
+        <a id="mailto_link"
+           class="small_button"
+           href="">Poslat e-mailem odkaz</a>
+        </div>
+
+        <div class="col span_2_of_6 right">        
+        <!-- only for P_READ_ONCE --> 
+        <a id="destroy_link"
+           class="danger small_button hidden" 
+           href="">Smazat zprávu nyní</a>
+
+        <!-- not for P_READ_ONCE -->
+        <a id="show_link"
+           class="small_button hidden"           
+           href="">Přečíst zprávu</a>
+        </div>
+    </div>
+
+    <!-- only for manual password -->
+    <div id="note_password_block" class="hidden">
+        <h3>Manuální heslo</h3>
+        <div class="section group">
+            <label>
+                K přečtení je zapotřebí heslo
+                <input id="note_password_input" type="text" readonly> 
+            </label>
+        </div>
+        
+        <div class="section group">
+            <div class="col span_2_of_6">            
+                <button id="show_password" class="small_button">Ukaž heslo</button>
+                <button id="hide_password" class="small_button hidden">Skrýt heslo</button>
+            </div>
+            <div class="col span_2_of_6">            
+               <button id="select_password" class="small_button hidden">Vybrat heslo</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+    notes.set_device_type("desktop")
+    notes.when_ready( function() { notes.init_create() } )
+    
+</script>
+
+        </div>
+
+        
+        
+        <div id="footer">
+            <div id="nav" class="section group">
+                <div class="col span_2_of_6">
+                    <a href="/"><strong>Napište novou zprávu</strong></a><br>
+                    <a href="/info/contact">Sdílej tvé komentáře</a>
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/info/support">Podpora</a><br>
+                    <a href="/info/privacy">Soukromí</a><br>
+                    <a href="/info/about">O</a>
+                                        
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/blog" rel="noreferrer">Blog</a><br>
+                    <a href="/twitter" rel="noreferrer">Twitter</a><br>
+                    <a href="/facebook" rel="noreferrer">Facebook</a>
+                </div>
+
+                <div class="col span_2_of_6">
+                    <form method="get">
+                        <select name="manual_locale" onchange="javascript:this.form.submit()">
+                            <option
+                                 value="de"
+                                 >Deutsch</option>
+                            <option
+                                 value="en"
+                                 >English</option>
+                            <option
+                                 value="es"
+                                 >Español</option>
+                            <option
+                                 value="fr"
+                                 >Français</option>
+                            <option
+                                 value="it"
+                                 >Italiano</option>
+                            <option
+                                 value="pl"
+                                 >Polski</option>
+                            <option
+                                 value="pt"
+                                 >Português</option>
+                            <option
+                                 value="ro"
+                                 >Romana</option>
+                            <option
+                                 value="ru"
+                                 >Русский</option>
+                            <option
+                                 value="sv"
+                                 >Svenska</option>
+                            <option
+                                 value="tr"
+                                 >Türkçe</option>
+                            <option
+                                 value="uk"
+                                 >українська мова</option>
+                            <option
+                                 value="zh_CN"
+                                 >汉语</option>
+                            <option
+                                 value="zh_TW"
+                                 >漢語</option>
+                            <option
+                                 value="cs"
+                                 selected=selected
+                                 >čeština</option>
+                            <option
+                                 value="nl"
+                                 >Dutch</option>
+                            <option
+                                 value="th"
+                                 >ไทย</option>
+                            <option value="default">(Podle prohlížeče)</option>
+                        </select>
+                    </form>
+                    <a href="http://blog.privnote.com/post/125553077722/helps-us-translate-privnote">Přeložte do svého jazyka!</a><br><br>
+                </div>
+            </div>
+            
+            <div id="footnote">
+                Privnote <span class="version">Ver. 1.1-44-g58c8928 / 2018-05-25</span> |
+                © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+            </div>
+        </div>
+        
+        
+        <div id="cookie-modal" class="cookie-modal hidden">
+            <span class="cookie-span">Privnote používá cookies.
+               <a class="cookie-link" target="_blank" href="/info/privacy">Zobrazit to v zásadách ochrany osobních údajů.</a>
+               <button id="cookie_consent" class="cookie-button">Chápu to!</button>
+            </span>
+        </div> 
+        
+    </body>
+
+</html>
+

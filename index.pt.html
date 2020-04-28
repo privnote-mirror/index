@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Privnote - Envie notas que se auto destruirão após serem lidas</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Share a confidential note via a web link that will self-destruct after it is read by your intended recipient." />
+        
+        
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+        <meta name="application-name" content="Privnote"/>
+        <meta name="msapplication-TileColor" content="#960000" />
+        <meta name="msapplication-TileImage" content="/static-58c8928/icon/mstile-144x144.png" />
+
+        <!-- <meta name="viewport" content="width=600">-->
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=no"> -->
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/gibberish-aes.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/TextEncoderLite.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/b64.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/promise.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/common.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/legacy.js"></script>
+
+        <script type="text/javascript">
+            
+            var i18n_tpl = {
+            'expires_d'   : "{days} dias"  , // >= 2 days
+            'expires_h_m' : "{hours} horas e {minutes} minutos", // >= 2 hours
+            'expires_m_s' : "{minutes} minutos e {seconds} segundos", // >= 2 min
+            'expires_s'   : "{seconds} segundos"    // else
+            }
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy-ie-lte-8.css" />
+        <![endif]-->
+        
+    </head>
+    <body>
+        
+        <div id="header_bg">
+            <div id="header">
+                <h1>
+                    <a href="/" title="Clique aqui para criar uma nova nota">                        
+                        <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                             onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                        <span>Privnote</span>
+                    </a>
+                </h1>
+                <h2>Envie notas que serão destruídas automaticamente assim que forem lidas</h2>
+            </div>
+            
+        </div>
+
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <!-- CREATE -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- privnote-create -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-5092778170626405"
+data-ad-slot="8645900978"
+data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+            </div>
+        </div>
+        
+        
+        <!-- content -->
+        <div id="unsupported">
+            Carregando...<br><br>
+            <p>
+                Se esta mensagem não desaparecer após algum tempo, significa que o Privnote não funciona em seu Navegador<br>
+                Por favor, verifique que o JavaScript esteja habilitado,<br>
+                Se o problema persistir, mande-nos um e-mail para support@privnote.com com o tipo de navegador e versão que está utilizando e faremos o possível para resolver este problema.<br>
+            </p>
+        </div>
+        <div id="content" class="hidden">
+            
+
+<!-- ========== NEW NOTE ========== --> 
+<div id="new_note">
+
+    <div>
+        <h1 class="">Nova nota <a id="new_note_help_toggle" class="help_button">?</a></h1>        
+    </div>
+        
+    <div id="new_note_help" class="section hidden help_block">
+        Com Privnote você pode enviar notas que se auto destruirão após serem lidas<br>
+        1. Escreva sua nota abaixo, encripte e receba um link.<br>
+        2. Mande o link a quem você deseja que leia esta nota.<br>
+        3. A nota se auto destruirá após ser lida, pelo próprio recipiente.<br>
+        <br>
+        Clicando o botão de opções, você pode especificar uma senha manualmente para encriptá-la, criar uma data de validade e ser notificado que a nota foi destruída.<br>
+        <br>
+        Para saber mais sobre como o Privnote funciona, verifique em
+        <a href="/info/about">sobre a página</a>. 
+    </div>
+
+    <textarea id="note_raw" name="note_raw"  rows="4" placeholder="Escreva sua nota aqui ..."></textarea>
+
+
+    <div id="advanced_options" class="hidden">
+        <h3>Notas auto destrutivas</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                <select id="duration_hours" name="duration_hours">
+                    <option value="0">depois de ler</option>
+                    <option value="1">1 hora a partir de agora</option>
+                    <option value="24">24 horas a partir de agora</option>
+                    <option value="168">7 dias a partir de agora</option>
+                    <option value="720">30 dias a partir de agora</option>
+                </select>
+            </label>
+            </div>
+
+            <div class="col span_3_of_6" id="confirmation_option">
+                <label class="checkbox">
+                    <input type="checkbox" name="destroy_without_confirmation" id="destroy_without_confirmation">
+                    Nao pedir confirmacao
+                </label>
+            </div>
+        </div>
+        
+        <h3>Senha manual</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                Entre com uma senha personalizada para encriptar a nota
+                <input id="manual_password" type="password">
+                <span id="very_weak_manual_password"   class="caption very_weak hidden">Muito fraca</span>
+                <span id="weak_manual_password"        class="caption weak hidden">Fraca</span>
+                <span id="good_manual_password"        class="caption good hidden">Boa</span>
+                <span id="strong_manual_password"      class="caption strong hidden">Forte</span>
+                <span id="very_strong_manual_password" class="caption very_strong hidden">Muito forte</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Confirme a senha
+                <input id="manual_password_confirm" type="password">
+                <span class="error hidden" id="error_password_mismatch">A senha não confere.</span>
+            </label>
+            </div>
+        </div>
+        
+        <h3>Notificação de destruição</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                E-mail para notificar que a nota foi destruída
+                <input id="notify_email" name="notify_email" type="text">
+                <span class="error hidden" id="error_notify_email_invalid">Endereço de e-mail inválido.</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Nome de referência para esta nota (opcional)
+                <input id="notify_ref" name="notify_ref" type="text" maxlength="7">
+            </label>
+            </div>
+        </div>
+
+        <div class="section group hidden" id="advanced_options_tip">
+            Dica: marque a página agora para que você não precise inserir essas opções avançadas novamente.
+        </div>
+    </div>
+
+    
+    <div id="error_connection" class="error_block hidden">
+        Erro ao enviar ao servidor do Privnote. Por favor, verifique a sua conexão de internet e tente novamente
+    </div>
+    <div id="error_ajax" class="error_block hidden">
+    </div>
+    <div id="error_note_is_empty" class="error_block hidden">
+        Erro: o texto da nota está vazio.
+    </div>
+
+
+    <div class="section group">
+        <div class="col span_2_of_6">
+            <button id="encrypt_note" class="primary_button">Criar a nota</button>
+        </div>
+        <div class="col span_2_of_6 right">
+            <button id="advanced_options_show" class="button">
+                Veja as opções <span id="options_on_notice_asterisk" class="hidden">(*)</></button>
+            <button id="advanced_options_hide" class="button hidden">
+                Desabilita opções</button>
+            <div class="hint hidden" id="options_on_notice">Algumas opcoes configuradas atraves da URL</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== PROCESSING ========== --> 
+<div id="creating_note" class="hidden">
+    <h1>Processando...</h1>
+    <p>Por favor, aguarde enquanto sua nota está sendo encriptada em seu navegador e então armazenda no Privnote.</p>
+</div>
+
+<!-- ========== CREATED NOTE ========== --> 
+<div id="created_note" class="hidden">
+    <h1>Link da nota pronto <a id="created_note_help_toggle" class="help_button">?</a></h1>
+
+    <div id="created_note_help" class="help_block hidden">        
+        Copie o link, cole no corpo de um e-mail ou mensagem e envie a quem você quer que leia a nota.
+        <span id="created_note_with_pass_help" class="hidden">
+            Não se esqueça de enviar também a senha.
+            Use um método diferente para enviar com aumento de segurança.
+        </span>
+    </div>
+
+    <!-- link and toolbar -->
+    <div class="section group">
+        <label>
+        <input id="note_link_input" type="text" readonly>
+        <span id="info_read_once" class="caption hidden">
+            A nota se destruirá após a leitura.</span>
+        <span id="info_expires" class="caption hidden">
+            A nota se auto destruirá em <span id="info_expires_text"></span>.</span>
+        </label>
+    </div>
+    
+    <div class="section group">
+        <div class="col span_1_of_6">
+        <button id="select_link"
+           class="small_button">Selecione o link</button>
+        </div>
+        <div class="col span_1_of_6">
+        <a id="mailto_link"
+           class="small_button"
+           href="">Envie o link pro e-mail</a>
+        </div>
+
+        <div class="col span_2_of_6 right">        
+        <!-- only for P_READ_ONCE --> 
+        <a id="destroy_link"
+           class="danger small_button hidden" 
+           href="">Destrua a nota agora</a>
+
+        <!-- not for P_READ_ONCE -->
+        <a id="show_link"
+           class="small_button hidden"           
+           href="">Leia a nota</a>
+        </div>
+    </div>
+
+    <!-- only for manual password -->
+    <div id="note_password_block" class="hidden">
+        <h3>Senha manual</h3>
+        <div class="section group">
+            <label>
+                É necessário senha para ler a nota
+                <input id="note_password_input" type="text" readonly> 
+            </label>
+        </div>
+        
+        <div class="section group">
+            <div class="col span_2_of_6">            
+                <button id="show_password" class="small_button">Mostre a senha</button>
+                <button id="hide_password" class="small_button hidden">Esconda a senha</button>
+            </div>
+            <div class="col span_2_of_6">            
+               <button id="select_password" class="small_button hidden">Selecione uma senha</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+    notes.set_device_type("desktop")
+    notes.when_ready( function() { notes.init_create() } )
+    
+</script>
+
+        </div>
+
+        
+        
+        <div id="footer">
+            <div id="nav" class="section group">
+                <div class="col span_2_of_6">
+                    <a href="/"><strong>Escreva uma nova nota</strong></a><br>
+                    <a href="/info/contact">Comentarios</a>
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/info/support">Suporte</a><br>
+                    <a href="/info/privacy">Privacidade</a><br>
+                    <a href="/info/about">Sobre</a>
+                                        
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/blog" rel="noreferrer">Blog</a><br>
+                    <a href="/twitter" rel="noreferrer">Twitter</a><br>
+                    <a href="/facebook" rel="noreferrer">Facebook</a>
+                </div>
+
+                <div class="col span_2_of_6">
+                    <form method="get">
+                        <select name="manual_locale" onchange="javascript:this.form.submit()">
+                            <option
+                                 value="de"
+                                 >Deutsch</option>
+                            <option
+                                 value="en"
+                                 >English</option>
+                            <option
+                                 value="es"
+                                 >Español</option>
+                            <option
+                                 value="fr"
+                                 >Français</option>
+                            <option
+                                 value="it"
+                                 >Italiano</option>
+                            <option
+                                 value="pl"
+                                 >Polski</option>
+                            <option
+                                 value="pt"
+                                 selected=selected
+                                 >Português</option>
+                            <option
+                                 value="ro"
+                                 >Romana</option>
+                            <option
+                                 value="ru"
+                                 >Русский</option>
+                            <option
+                                 value="sv"
+                                 >Svenska</option>
+                            <option
+                                 value="tr"
+                                 >Türkçe</option>
+                            <option
+                                 value="uk"
+                                 >українська мова</option>
+                            <option
+                                 value="zh_CN"
+                                 >汉语</option>
+                            <option
+                                 value="zh_TW"
+                                 >漢語</option>
+                            <option
+                                 value="cs"
+                                 >čeština</option>
+                            <option
+                                 value="nl"
+                                 >Dutch</option>
+                            <option
+                                 value="th"
+                                 >ไทย</option>
+                            <option value="default">(Navegador padrão)</option>
+                        </select>
+                    </form>
+                    <a href="http://blog.privnote.com/post/125553077722/helps-us-translate-privnote">Traduzir para o seu idioma!</a><br><br>
+                </div>
+            </div>
+            
+            <div id="footnote">
+                Privnote <span class="version">Ver. 1.1-44-g58c8928 / 2018-05-25</span> |
+                © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+            </div>
+        </div>
+        
+        
+        <div id="cookie-modal" class="cookie-modal hidden">
+            <span class="cookie-span">O Privnote usa cookies.
+               <a class="cookie-link" target="_blank" href="/info/privacy">Mostre na Política de Privacidade.</a>
+               <button id="cookie_consent" class="cookie-button">Entendido!</button>
+            </span>
+        </div> 
+        
+    </body>
+
+</html>
+

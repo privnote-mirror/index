@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Even geduld, terwijl de notitie is gecodeerd in uw browser en vervolgens is opgeslagen in Privnote.</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Share a confidential note via a web link that will self-destruct after it is read by your intended recipient." />
+        
+        
+        <link rel="shortcut icon" href="/static-58c8928/icon/favicon.ico" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/static-58c8928/icon/favicon-16x16.png" sizes="16x16" />        
+        
+        <link rel="icon" sizes="192x192" href="/static-58c8928/icon/touch-icon-192x192.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/static-58c8928/icon/apple-touch-icon-180x180.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static-58c8928/icon/apple-touch-icon-152x152.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static-58c8928/icon/apple-touch-icon-144x144.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static-58c8928/icon/apple-touch-icon-120x120.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static-58c8928/icon/apple-touch-icon-114x114.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static-58c8928/icon/apple-touch-icon-76x76.png">
+        
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static-58c8928/icon/apple-touch-icon-72x72.png">
+        
+        <link rel="apple-touch-icon-precomposed" href="/static-58c8928/icon/apple-touch-icon-57x57.png">        
+        <meta name="application-name" content="Privnote"/>
+        <meta name="msapplication-TileColor" content="#960000" />
+        <meta name="msapplication-TileImage" content="/static-58c8928/icon/mstile-144x144.png" />
+
+        <!-- <meta name="viewport" content="width=600">-->
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=no"> -->
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/gibberish-aes.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/TextEncoderLite.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/b64.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/lib/promise.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/common.js"></script>
+        <script type="text/javascript" src="/static-58c8928/js-min/legacy.js"></script>
+
+        <script type="text/javascript">
+            
+            var i18n_tpl = {
+            'expires_d'   : "{days} dagen"  , // >= 2 days
+            'expires_h_m' : "{hours} uur and {minutes} minuten", // >= 2 hours
+            'expires_m_s' : "{minutes} minuten and {seconds} seconden", // >= 2 min
+            'expires_s'   : "{seconds} seconden"    // else
+            }
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy.css" />
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" type="text/css" href="/static-58c8928/style/legacy-ie-lte-8.css" />
+        <![endif]-->
+        
+    </head>
+    <body>
+        
+        <div id="header_bg">
+            <div id="header">
+                <h1>
+                    <a href="/" title="Klik hier om een nieuw bericht te maken">                        
+                        <img src="/static-58c8928/style/legacy/privnote-logo.svg"
+                             onerror="this.onerror=null; this.src='/static-58c8928/style/legacy/privnote-logo.png'">
+                        <span>Privnote</span>
+                    </a>
+                </h1>
+                <h2>Stuur notities die zichzelf vernietigen na te zijn gelezen.</h2>
+            </div>
+            
+        </div>
+
+        
+        <div id="ad_bg">
+            <div id="ad">
+                <!-- CREATE -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- privnote-create -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-5092778170626405"
+data-ad-slot="8645900978"
+data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+            </div>
+        </div>
+        
+        
+        <!-- content -->
+        <div id="unsupported">
+            Laden…<br><br>
+            <p>
+                Als dit bericht niet verdwijnt na een tijdje dan betekent dit dat privnote niet werkt in uw browser.<br>
+                Controleer of JavaScript ingeschakeld is.<br>
+                Als het probleem aanhoud, stuur ons een e-mail naar support@privnote.com met uw browser naam en versie en we zullen ons best doen het probleem op te lossen.<br>
+            </p>
+        </div>
+        <div id="content" class="hidden">
+            
+
+<!-- ========== NEW NOTE ========== --> 
+<div id="new_note">
+
+    <div>
+        <h1 class="">Nieuw bericht <a id="new_note_help_toggle" class="help_button">?</a></h1>        
+    </div>
+        
+    <div id="new_note_help" class="section hidden help_block">
+        Met Privnote kunt u notities verzenden die zichzelf vernietigen nadat ze zijn gelezen.<br>
+        1. Schrijf uw bericht hieronder, versleutel het, en krijg uw link.<br>
+        2. Verstuur de link naar diegene die je het bericht wilt laten lezen.<br>
+        3. Het bericht word automatisch vernietigd nadat het is gelezen door de ontvanger.<br>
+        <br>
+        Als u op de optie knop klikt, kunt u een wachtwoord maken om uw bericht te versleutelen. Zet een vervaldatum en krijg bericht als het bericht is vernietigd. <br>
+        <br>
+        Om meer te weten te komen over de wijze waarop Privnote werkt, zie
+        <a href="/info/about">Over ons pagina</a>. 
+    </div>
+
+    <textarea id="note_raw" name="note_raw"  rows="4" placeholder="Schrijf hier je bericht..."></textarea>
+
+
+    <div id="advanced_options" class="hidden">
+        <h3>Let op zelfvernietiging</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                <select id="duration_hours" name="duration_hours">
+                    <option value="0">Na het lezen</option>
+                    <option value="1">Over 1 uur</option>
+                    <option value="24">Over 24 uur</option>
+                    <option value="168">Over 7 dagen</option>
+                    <option value="720">Over 30 dagen</option>
+                </select>
+            </label>
+            </div>
+
+            <div class="col span_3_of_6" id="confirmation_option">
+                <label class="checkbox">
+                    <input type="checkbox" name="destroy_without_confirmation" id="destroy_without_confirmation">
+                    Vraag niet om bevestiging voor het tonen van het bericht.
+                </label>
+            </div>
+        </div>
+        
+        <h3>Handmatig wachtwoord</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                Vul een eigen wachtwoord in om het bericht te versleutelen
+                <input id="manual_password" type="password">
+                <span id="very_weak_manual_password"   class="caption very_weak hidden">Erg zwak</span>
+                <span id="weak_manual_password"        class="caption weak hidden">Zwak</span>
+                <span id="good_manual_password"        class="caption good hidden">Goed</span>
+                <span id="strong_manual_password"      class="caption strong hidden">Sterk</span>
+                <span id="very_strong_manual_password" class="caption very_strong hidden">Erg sterk</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Bevestig wachtwoord
+                <input id="manual_password_confirm" type="password">
+                <span class="error hidden" id="error_password_mismatch">De wachtwoorden komen niet overeen</span>
+            </label>
+            </div>
+        </div>
+        
+        <h3>Vernietigings-bericht</h3>
+        <div class="section group">
+            <div class="col span_3_of_6">
+            <label>
+                E-mail waarop notificatie te ontvangen dat het bericht is gelezen
+                <input id="notify_email" name="notify_email" type="text">
+                <span class="error hidden" id="error_notify_email_invalid">Fout e-mail adres</span>
+            </label>
+            </div>
+            <div class="col span_3_of_6">
+            <label>
+                Referentienaam voor de notitie (optioneel)
+                <input id="notify_ref" name="notify_ref" type="text" maxlength="7">
+            </label>
+            </div>
+        </div>
+
+        <div class="section group hidden" id="advanced_options_tip">
+            Tip: bookmark de pagina nu, zodat u deze geavanceerde opties niet opnieuw hoeft in te voeren.
+        </div>
+    </div>
+
+    
+    <div id="error_connection" class="error_block hidden">
+        Fout met verbinden privnote server. Controleer uw internetverbinding en probeer opnieuw
+    </div>
+    <div id="error_ajax" class="error_block hidden">
+    </div>
+    <div id="error_note_is_empty" class="error_block hidden">
+        Fout, Het bericht veld is leeg.
+    </div>
+
+
+    <div class="section group">
+        <div class="col span_2_of_6">
+            <button id="encrypt_note" class="primary_button">Creeër bericht</button>
+        </div>
+        <div class="col span_2_of_6 right">
+            <button id="advanced_options_show" class="button">
+                Toon opties <span id="options_on_notice_asterisk" class="hidden">(*)</></button>
+            <button id="advanced_options_hide" class="button hidden">
+                Schakel opties uit</button>
+            <div class="hint hidden" id="options_on_notice">(*) sommige opties worden bepaald door de url</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== PROCESSING ========== --> 
+<div id="creating_note" class="hidden">
+    <h1>Verwerken...</h1>
+    <p>Even geduld, terwijl de notitie is gecodeerd in uw browser en vervolgens is opgeslagen in Privnote.</p>
+</div>
+
+<!-- ========== CREATED NOTE ========== --> 
+<div id="created_note" class="hidden">
+    <h1>Opmerking link klaar <a id="created_note_help_toggle" class="help_button">?</a></h1>
+
+    <div id="created_note_help" class="help_block hidden">        
+        Kopieer de link, plak het in een email of direct bericht en stuur het naar wie je het bericht wilt laten lezen.
+        <span id="created_note_with_pass_help" class="hidden">
+            Vergeet niet het wachtwoord mee te sturen.
+            Gebruik een andere methode om het te verzenden voor meer veiligheid.
+        </span>
+    </div>
+
+    <!-- link and toolbar -->
+    <div class="section group">
+        <label>
+        <input id="note_link_input" type="text" readonly>
+        <span id="info_read_once" class="caption hidden">
+            Het bericht zal na het lezen vernietigd worden.</span>
+        <span id="info_expires" class="caption hidden">
+            Het bericht zal vernietigd worden na <span id="info_expires_text"></span>.</span>
+        </label>
+    </div>
+    
+    <div class="section group">
+        <div class="col span_1_of_6">
+        <button id="select_link"
+           class="small_button">Selecteer link</button>
+        </div>
+        <div class="col span_1_of_6">
+        <a id="mailto_link"
+           class="small_button"
+           href="">E-mail link</a>
+        </div>
+
+        <div class="col span_2_of_6 right">        
+        <!-- only for P_READ_ONCE --> 
+        <a id="destroy_link"
+           class="danger small_button hidden" 
+           href="">Vernietig bericht nu</a>
+
+        <!-- not for P_READ_ONCE -->
+        <a id="show_link"
+           class="small_button hidden"           
+           href="">Bericht lezen</a>
+        </div>
+    </div>
+
+    <!-- only for manual password -->
+    <div id="note_password_block" class="hidden">
+        <h3>Handmatig wachtwoord</h3>
+        <div class="section group">
+            <label>
+                Wachtwoord is verplicht om bericht te mogen lezen
+                <input id="note_password_input" type="text" readonly> 
+            </label>
+        </div>
+        
+        <div class="section group">
+            <div class="col span_2_of_6">            
+                <button id="show_password" class="small_button">Wachtwoord tonen</button>
+                <button id="hide_password" class="small_button hidden">Verberg wachtwoord</button>
+            </div>
+            <div class="col span_2_of_6">            
+               <button id="select_password" class="small_button hidden">Kies wachtwoord</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+    notes.set_device_type("desktop")
+    notes.when_ready( function() { notes.init_create() } )
+    
+</script>
+
+        </div>
+
+        
+        
+        <div id="footer">
+            <div id="nav" class="section group">
+                <div class="col span_2_of_6">
+                    <a href="/"><strong>Schrijf een nieuw bericht</strong></a><br>
+                    <a href="/info/contact">Deel uw opmerkingen</a>
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/info/support">Ondersteuning</a><br>
+                    <a href="/info/privacy">Privacy</a><br>
+                    <a href="/info/about">Over ons</a>
+                                        
+                </div>
+
+                <div class="col span_1_of_6">
+                    <a href="/blog" rel="noreferrer">Blog</a><br>
+                    <a href="/twitter" rel="noreferrer">Twitter</a><br>
+                    <a href="/facebook" rel="noreferrer">Facebook</a>
+                </div>
+
+                <div class="col span_2_of_6">
+                    <form method="get">
+                        <select name="manual_locale" onchange="javascript:this.form.submit()">
+                            <option
+                                 value="de"
+                                 >Deutsch</option>
+                            <option
+                                 value="en"
+                                 >English</option>
+                            <option
+                                 value="es"
+                                 >Español</option>
+                            <option
+                                 value="fr"
+                                 >Français</option>
+                            <option
+                                 value="it"
+                                 >Italiano</option>
+                            <option
+                                 value="pl"
+                                 >Polski</option>
+                            <option
+                                 value="pt"
+                                 >Português</option>
+                            <option
+                                 value="ro"
+                                 >Romana</option>
+                            <option
+                                 value="ru"
+                                 >Русский</option>
+                            <option
+                                 value="sv"
+                                 >Svenska</option>
+                            <option
+                                 value="tr"
+                                 >Türkçe</option>
+                            <option
+                                 value="uk"
+                                 >українська мова</option>
+                            <option
+                                 value="zh_CN"
+                                 >汉语</option>
+                            <option
+                                 value="zh_TW"
+                                 >漢語</option>
+                            <option
+                                 value="cs"
+                                 >čeština</option>
+                            <option
+                                 value="nl"
+                                 selected=selected
+                                 >Dutch</option>
+                            <option
+                                 value="th"
+                                 >ไทย</option>
+                            <option value="default">(Standaard browser)</option>
+                        </select>
+                    </form>
+                    <a href="http://blog.privnote.com/post/125553077722/helps-us-translate-privnote">Vertaal in jouw taal!</a><br><br>
+                </div>
+            </div>
+            
+            <div id="footnote">
+                Privnote <span class="version">Ver. 1.1-44-g58c8928 / 2018-05-25</span> |
+                © <a href="http://www.ikatu.us/privnote.html">Ikatu</a>
+            </div>
+        </div>
+        
+        
+        <div id="cookie-modal" class="cookie-modal hidden">
+            <span class="cookie-span">Privnote maakt gebruik van cookies.
+               <a class="cookie-link" target="_blank" href="/info/privacy">Leer het in ons privacybeleid.</a>
+               <button id="cookie_consent" class="cookie-button">Begrepen!</button>
+            </span>
+        </div> 
+        
+    </body>
+
+</html>
+
