@@ -274,7 +274,7 @@ show($('#creating_note'))
 var note_encrypted=common.encrypt(note_text,password)
 if(password.length!=common.auto_pass_length)
 password=common.mangle(password)
-created_note_data={'data':note_encrypted,'has_manual_pass':(manual_password!=''),'duration_hours':$('#duration_hours').value,'dont_ask':$('#destroy_without_confirmation').checked,'data_type':'T','notify_email':$('#notify_email').value.trim(),'notify_ref':$('#notify_ref').value}
+created_note_data={'data':note_encrypted,'has_manual_pass':(manual_password!=''),'duration_hours':$('#duration_hours').value,'dont_ask':$('#destroy_without_confirmation').checked,'data_type':'T','notify_email':$('#notify_email').value.trim(),'notify_ref':$('#notify_ref').value,'hash':password}
 promise.post('/legacy/',created_note_data,{"X-Requested-With":'XMLHttpRequest'}).then(function(error,text,xhr){if(error){show($('#error_connection'));show($('#new_note'))
 hide($('#creating_note'))
 hide($('#created_note'))
