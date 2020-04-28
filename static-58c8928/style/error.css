@@ -1,0 +1,56 @@
+body {
+    font-family: Helvetica, sans-serif, sans;
+}
+
+.modal .dialog {
+    -moz-box-shadow: 5px 5px 10px #888;   
+    -webkit-box-shadow: 5px 5px 10px #888;   
+    background-color: #960000;
+    box-shadow: 5px 5px 10px #888;   
+    color: white;
+    margin:auto;
+    margin-top:60px;
+    padding-bottom: 30px;
+    padding-top: 50px;
+    padding: 30px;
+    text-align: center;
+    width: 360px;
+}    
+
+.modal .dialog img.logo {
+    border: none;
+}
+
+.modal .dialog p {
+    margin-top: 30px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.modal .dialog a {
+    color: white;
+    text-decoration: underline;
+}
+
+.modal .dialog h1 {
+    font-size: 48px;
+    font-weight: 100;
+    margin-top: 40px;
+}
+
+.modal .footer {
+    font-size: 12px;
+    font-weight: 300;
+    color: #555;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.modal .footer a {
+    color: #555;
+    text-decoration:none;    
+}
+
+.modal .footer a:hover {
+    text-decoration: underline;
+}
